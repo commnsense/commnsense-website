@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>comm&amp;sense – Dr. Christian Chua</title>
+  <meta name="description" content="Strategische Kommunikationsberatung & Coaching für Führungskräfte und Unternehmen. Dr. Christian Chua, Königstein im Taunus." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --black:   #0B0B0B;
+      --off-white: #F2F0EB;
+      --sage:    #BEDAAA;
+      --grey:    #9C9C9C;
+      --muted:   #3A3A3A;
+      --border:  rgba(190,218,170,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── UTILITIES ── */
+    .sage { color: var(--sage); }
+    .grey { color: var(--grey); }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 4rem;
+      background: linear-gradient(to bottom, rgba(11,11,11,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--off-white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--sage); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grey);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--sage); }
+
+    .lang-toggle {
+      display: flex;
+      gap: 0.25rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.2rem 0.25rem;
+    }
+    .lang-btn {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      border-radius: 1px;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .lang-btn.active {
+      background: var(--sage);
+      color: var(--black);
+    }
+    .lang-btn:hover:not(.active) { color: var(--off-white); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 8rem 4rem 6rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.35s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--grey);
+      max-width: 38ch;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.65s forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--sage);
+      color: var(--black);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btn-primary:hover {
+      background: var(--off-white);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      border: 1px solid var(--border);
+      color: var(--grey);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--sage);
+      color: var(--sage);
+      transform: translateY(-2px);
+    }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 8rem 0 0;
+      overflow: hidden;
+    }
+
+    .hero-vertical-text {
+      position: absolute;
+      right: 3.5rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: center center;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .hero-graphic {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .hero-graphic svg {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      animation: fadeIn 1.5s 0.8s forwards;
+    }
+
+    .hero-line {
+      position: absolute;
+      bottom: 6rem;
+      left: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .hero-line-bar {
+      width: 40px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    .hero-line span {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 8rem 4rem; }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--sage); }
+
+    /* ── SERVICES ── */
+    #services {
+      border-top: 1px solid var(--border);
+    }
+
+    .services-header {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
+
+    .services-intro {
+      color: var(--grey);
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.9;
+      max-width: 44ch;
+    }
+
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .service-card {
+      background: var(--black);
+      padding: 3rem 2.5rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--sage);
+      transition: width 0.4s ease;
+    }
+
+    .service-card:hover { background: rgba(190,218,170,0.04); }
+    .service-card:hover::after { width: 100%; }
+
+    .service-num {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(190,218,170,0.15);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-name {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: var(--off-white);
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--grey);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .service-tags {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      border: 1px solid rgba(190,218,170,0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 1px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,0.012);
+    }
+
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--grey);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text p strong {
+      color: var(--off-white);
+      font-weight: 400;
+    }
+
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .stat {
+      border-left: 2px solid var(--sage);
+      padding-left: 1.5rem;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--off-white);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 0.25rem;
+    }
+
+    .about-credentials {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .credential {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--grey);
+      font-weight: 300;
+    }
+
+    .credential::before {
+      content: '—';
+      color: var(--sage);
+      flex-shrink: 0;
+    }
+
+    /* ── APPROACH ── */
+    #approach {
+      border-top: 1px solid var(--border);
+    }
+
+    .approach-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .approach-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+      align-items: end;
+    }
+
+    .approach-quote {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--off-white);
+      line-height: 1.5;
+      border-left: 2px solid var(--sage);
+      padding-left: 2rem;
+    }
+
+    .approach-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .step {
+      background: var(--black);
+      padding: 2.5rem 2rem;
+    }
+
+    .step-num {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1rem;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+
+    .step-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-desc {
+      font-size: 0.84rem;
+      color: var(--grey);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ── CLIENTS / CONTEXT ── */
+    #context {
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,0.012);
+    }
+
+    .context-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .context-logos {
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .context-logo-item {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      transition: color 0.25s;
+    }
+
+    .context-logo-item:hover { color: var(--grey); }
+
+    .context-divider {
+      color: var(--border);
+      margin: 0 0.5rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-text {
+      color: var(--grey);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+
+    .contact-detail-value {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.3rem;
+      color: var(--off-white);
+    }
+
+    .contact-detail-value a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .contact-detail-value a:hover { color: var(--sage); }
+
+    /* Contact Form */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--off-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.8rem 1rem;
+      outline: none;
+      transition: border-color 0.25s;
+      -webkit-appearance: none;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--sage);
+    }
+
+    .form-textarea { resize: vertical; min-height: 120px; }
+
+    .form-select option { background: var(--black); }
+
+    .form-submit {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--grey);
+    }
+    .footer-brand span { color: var(--sage); }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .footer-links a:hover { color: var(--grey); }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 8rem 1.5rem 4rem; }
+      .hero-right { display: none; }
+
+      .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+      .approach-header { grid-template-columns: 1fr; gap: 2rem; }
+      .approach-steps { grid-template-columns: 1fr 1fr; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+      footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+      }
+    }
+
+    /* ── LANG SWITCH ── */
+    [data-lang-en] { display: none; }
+    html[lang="en"] [data-lang-de] { display: none; }
+    html[lang="en"] [data-lang-en] { display: block; }
+    html[lang="en"] span[data-lang-en] { display: inline; }
+    html[lang="en"] span[data-lang-de] { display: none; }
+    span[data-lang-en] { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">comm<span>&</span>sense</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#services" data-lang-de>Leistungen</a><a href="#services" data-lang-en>Services</a></li>
+        <li><a href="#about" data-lang-de>Profil</a><a href="#about" data-lang-en>Profile</a></li>
+        <li><a href="#approach" data-lang-de>Ansatz</a><a href="#approach" data-lang-en>Approach</a></li>
+        <li><a href="#contact" data-lang-de>Kontakt</a><a href="#contact" data-lang-en>Contact</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('de')">DE</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">
+        <span data-lang-de>Kommunikation · Coaching · Beratung</span>
+        <span data-lang-en>Communication · Coaching · Consulting</span>
+      </p>
+
+      <h1 class="hero-title">
+        <span data-lang-de>Kommunikation,<br>die <em>bewegt.</em><br>Beratung, die<br><em>wirkt.</em></span>
+        <span data-lang-en>Communication<br>that <em>moves.</em><br>Consulting that<br><em>works.</em></span>
+      </h1>
+
+      <p class="hero-sub">
+        <span data-lang-de>Dr. Christian Chua – strategische Kommunikationsberatung und systemisches Coaching für Führungskräfte, Teams und Organisationen.</span>
+        <span data-lang-en>Dr. Christian Chua – strategic communication consulting and systemic coaching for executives, teams, and organisations.</span>
+      </p>
+
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">
+          <span data-lang-de>Gespräch vereinbaren</span>
+          <span data-lang-en>Schedule a call</span>
+        </a>
+        <a href="#services" class="btn-ghost">
+          <span data-lang-de>Leistungen</span>
+          <span data-lang-en>Services</span>
+        </a>
+      </div>
+
+      <div class="hero-line" style="margin-top: 4rem;">
+        <div class="hero-line-bar"></div>
+        <span>Königstein im Taunus</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-graphic">
+        <svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <!-- Background geometry -->
+          <rect width="600" height="800" fill="#0B0B0B"/>
+          <!-- Large circle -->
+          <circle cx="380" cy="380" r="300" fill="none" stroke="rgba(190,218,170,0.06)" stroke-width="1"/>
+          <circle cx="380" cy="380" r="220" fill="none" stroke="rgba(190,218,170,0.06)" stroke-width="1"/>
+          <circle cx="380" cy="380" r="140" fill="none" stroke="rgba(190,218,170,0.08)" stroke-width="1"/>
+          <!-- Diagonal lines -->
+          <line x1="80" y1="0" x2="600" y2="800" stroke="rgba(190,218,170,0.05)" stroke-width="1"/>
+          <line x1="0" y1="200" x2="600" y2="600" stroke="rgba(190,218,170,0.04)" stroke-width="1"/>
+          <!-- Accent dot -->
+          <circle cx="380" cy="380" r="5" fill="rgba(190,218,170,0.5)"/>
+          <!-- Grid lines -->
+          <line x1="0" y1="400" x2="600" y2="400" stroke="rgba(190,218,170,0.04)" stroke-width="0.5"/>
+          <line x1="300" y1="0" x2="300" y2="800" stroke="rgba(190,218,170,0.04)" stroke-width="0.5"/>
+          <!-- Text elements -->
+          <text x="60" y="720" font-family="'DM Sans'" font-size="9" fill="rgba(156,156,156,0.4)" letter-spacing="3">COMMUNICATION</text>
+          <text x="60" y="740" font-family="'DM Sans'" font-size="9" fill="rgba(156,156,156,0.4)" letter-spacing="3">COACHING</text>
+          <text x="60" y="760" font-family="'DM Sans'" font-size="9" fill="rgba(156,156,156,0.4)" letter-spacing="3">CONSULTING</text>
+          <!-- Corner markers -->
+          <line x1="560" y1="40" x2="580" y2="40" stroke="rgba(190,218,170,0.3)" stroke-width="1"/>
+          <line x1="580" y1="40" x2="580" y2="60" stroke="rgba(190,218,170,0.3)" stroke-width="1"/>
+          <line x1="20" y1="760" x2="40" y2="760" stroke="rgba(190,218,170,0.3)" stroke-width="1"/>
+          <line x1="20" y1="740" x2="20" y2="760" stroke="rgba(190,218,170,0.3)" stroke-width="1"/>
+          <!-- Gradient overlay -->
+          <defs>
+            <radialGradient id="glow" cx="63%" cy="47%" r="50%">
+              <stop offset="0%" stop-color="rgba(190,218,170,0.06)"/>
+              <stop offset="100%" stop-color="rgba(11,11,11,0)"/>
+            </radialGradient>
+          </defs>
+          <rect width="600" height="800" fill="url(#glow)"/>
+        </svg>
+      </div>
+      <div class="hero-vertical-text">comm&amp;sense · Dr. Christian Chua · Königstein im Taunus</div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header reveal">
+      <div>
+        <p class="section-label">
+          <span data-lang-de>Leistungen</span><span data-lang-en>Services</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang-de>Was ich <em>für Sie</em> tue.</span>
+          <span data-lang-en>What I do <em>for you.</em></span>
+        </h2>
+      </div>
+      <p class="services-intro">
+        <span data-lang-de>Zwanzig Jahre Erfahrung in strategischer Kommunikation – in Konzernen, vor Kameras und im vertraulichen Vier-Augen-Gespräch. Kein Einheitsrezept. Jedes Mandat ist maßgeschneidert.</span>
+        <span data-lang-en>Twenty years of experience in strategic communication – inside corporations, in front of cameras, and in confidential one-on-one conversations. No off-the-shelf solutions. Every mandate is bespoke.</span>
+      </p>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-name">
+          <span data-lang-de>Führungskräfte-Coaching</span>
+          <span data-lang-en>Executive Coaching</span>
+        </div>
+        <p class="service-desc">
+          <span data-lang-de>Systemisches Einzel-Coaching für Führungskräfte auf dem Weg nach oben, in Übergängen oder im Umgang mit Komplexität. Vertraulich, wirkungsorientiert, herausfordernd.</span>
+          <span data-lang-en>Systemic one-on-one coaching for executives navigating growth, transitions, or complexity. Confidential, impact-oriented, and challenging.</span>
+        </p>
+        <div class="service-tags">
+          <span class="tag">AVGS</span>
+          <span class="tag">
+            <span data-lang-de>Karriere</span><span data-lang-en>Career</span>
+          </span>
+          <span class="tag">
+            <span data-lang-de>Führung</span><span data-lang-en>Leadership</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-name">
+          <span data-lang-de>Kommunikationsberatung</span>
+          <span data-lang-en>Communication Consulting</span>
+        </div>
+        <p class="service-desc">
+          <span data-lang-de>Strategische Beratung für interne und externe Kommunikation: Konzepte, Krisen, Kampagnen. Mit dem Erfahrungsschatz aus zwölf Jahren Konzernkommunikation.</span>
+          <span data-lang-en>Strategic advisory for internal and external communications: concepts, crises, campaigns. Grounded in twelve years of corporate communications leadership.</span>
+        </p>
+        <div class="service-tags">
+          <span class="tag">
+            <span data-lang-de>Intern</span><span data-lang-en>Internal</span>
+          </span>
+          <span class="tag">
+            <span data-lang-de>Strategie</span><span data-lang-en>Strategy</span>
+          </span>
+          <span class="tag">Change</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-name">
+          <span data-lang-de>Workshops &amp; Trainings</span>
+          <span data-lang-en>Workshops &amp; Training</span>
+        </div>
+        <p class="service-desc">
+          <span data-lang-de>Maßgeschneiderte Formate für Unternehmen, Hochschulen und Akademien: von Kommunikationstraining bis KI-gestützter Führungskommunikation.</span>
+          <span data-lang-en>Bespoke formats for corporates, universities, and academies: from communication training to AI-assisted leadership communication.</span>
+        </p>
+        <div class="service-tags">
+          <span class="tag">
+            <span data-lang-de>Inhouse</span><span data-lang-en>In-house</span>
+          </span>
+          <span class="tag">AI</span>
+          <span class="tag">
+            <span data-lang-de>Hochschule</span><span data-lang-en>Academia</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-text reveal">
+        <p class="section-label">
+          <span data-lang-de>Profil</span><span data-lang-en>Profile</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang-de>Erfahrung,<br>die <em>zählt.</em></span>
+          <span data-lang-en>Experience<br>that <em>counts.</em></span>
+        </h2>
+        <p>
+          <span data-lang-de><strong>Dr. Christian Chua</strong> verbindet akademische Tiefe mit praktischer Schlagkraft. Zwölf Jahre Leiter interne Kommunikation bei der KfW Bankengruppe, zuvor Positionen bei der Deutschen Bank – und seither freiberuflich als Berater, Coach und Trainer für Unternehmen und Einzelpersonen tätig.</span>
+          <span data-lang-en><strong>Dr. Christian Chua</strong> combines academic depth with practical impact. Twelve years as Head of Internal Communications at KfW Bankengruppe, previously at Deutsche Bank – and since then working independently as consultant, coach, and trainer for organisations and individuals.</span>
+        </p>
+        <p>
+          <span data-lang-de>Sein Ansatz: direkt, empathisch und konsequent auf Wirkung ausgerichtet. Kein Coaching-Sprech, keine leeren Frameworks. Stattdessen: präzise Analyse, klare Empfehlungen, begleitete Umsetzung.</span>
+          <span data-lang-en>His approach: direct, empathetic, and consistently focused on outcomes. No coaching jargon, no empty frameworks. Instead: precise analysis, clear recommendations, supported implementation.</span>
+        </p>
+        <div class="about-credentials">
+          <div class="credential">
+            <span data-lang-de>Promotion, National University of Singapore</span>
+            <span data-lang-en>Doctorate, National University of Singapore</span>
+          </div>
+          <div class="credential">
+            <span data-lang-de>Systemischer Coach (zertifiziert)</span>
+            <span data-lang-en>Systemic Coach (certified)</span>
+          </div>
+          <div class="credential">
+            <span data-lang-de>Lehrbeauftragter: accadis Hochschule, Frankfurt School, DHBW, Quadriga</span>
+            <span data-lang-en>Lecturer: accadis University, Frankfurt School, DHBW, Quadriga</span>
+          </div>
+          <div class="credential">
+            <span data-lang-de>Trainer: Deutsche Presseakademie, Bundesbank</span>
+            <span data-lang-en>Trainer: Deutsche Presseakademie, Bundesbank</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-stats reveal">
+        <div class="stat">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">
+            <span data-lang-de>Jahre Berufserfahrung</span>
+            <span data-lang-en>Years of experience</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">12</div>
+          <div class="stat-label">
+            <span data-lang-de>Jahre KfW Bankengruppe</span>
+            <span data-lang-en>Years at KfW Bankengruppe</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">
+            <span data-lang-de>Lehrkooperationen</span>
+            <span data-lang-en>Teaching cooperations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="approach-inner">
+      <div class="approach-header reveal">
+        <div>
+          <p class="section-label">
+            <span data-lang-de>Arbeitsweise</span><span data-lang-en>Approach</span>
+          </p>
+          <h2 class="section-title">
+            <span data-lang-de>Wie ich <em>arbeite.</em></span>
+            <span data-lang-en>How I <em>work.</em></span>
+          </h2>
+        </div>
+        <blockquote class="approach-quote">
+          <span data-lang-de>„Kommunikation ist keine Technik – sie ist eine Haltung."</span>
+          <span data-lang-en>"Communication is not a technique – it is an attitude."</span>
+        </blockquote>
+      </div>
+
+      <div class="approach-steps reveal">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-title">
+            <span data-lang-de>Verstehen</span><span data-lang-en>Understand</span>
+          </div>
+          <p class="step-desc">
+            <span data-lang-de>Situation, Ziele, Systemdynamiken – bevor ich rede, höre ich zu.</span>
+            <span data-lang-en>Situation, goals, system dynamics – before I speak, I listen.</span>
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-title">
+            <span data-lang-de>Analysieren</span><span data-lang-en>Analyse</span>
+          </div>
+          <p class="step-desc">
+            <span data-lang-de>Muster erkennen, blinde Flecken benennen, Hebel identifizieren.</span>
+            <span data-lang-en>Identify patterns, name blind spots, locate leverage points.</span>
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-title">
+            <span data-lang-de>Gestalten</span><span data-lang-en>Design</span>
+          </div>
+          <p class="step-desc">
+            <span data-lang-de>Klare Empfehlungen und maßgeschneiderte Formate – keine Standardlösungen.</span>
+            <span data-lang-en>Clear recommendations and bespoke formats – no off-the-shelf solutions.</span>
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-title">
+            <span data-lang-de>Begleiten</span><span data-lang-en>Support</span>
+          </div>
+          <p class="step-desc">
+            <span data-lang-de>Umsetzung, Reflexion, Anpassung – bis das Ergebnis stimmt.</span>
+            <span data-lang-en>Implementation, reflection, adaptation – until the result holds.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXT / STATIONS -->
+  <section id="context">
+    <div class="context-inner reveal">
+      <p class="section-label">
+        <span data-lang-de>Kontext &amp; Erfahrungsfelder</span>
+        <span data-lang-en>Context &amp; Background</span>
+      </p>
+      <h2 class="section-title" style="margin-bottom: 1rem;">
+        <span data-lang-de>Wo ich <em>herkomme.</em></span>
+        <span data-lang-en>Where I come <em>from.</em></span>
+      </h2>
+      <p style="color: var(--grey); font-weight: 300; max-width: 56ch; margin-bottom: 3rem;">
+        <span data-lang-de>Meine Beratung ist geerdet in echter Konzernrealität – nicht in Lehrbüchern. Diese Stationen prägen meinen Blick.</span>
+        <span data-lang-en>My consulting is grounded in real corporate reality – not textbooks. These stations shape my perspective.</span>
+      </p>
+      <div class="context-logos">
+        <span class="context-logo-item">KfW Bankengruppe</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">Deutsche Bank</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">Frankfurt School</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">accadis Hochschule</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">DHBW</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">Quadriga Hochschule</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">Bundesbank</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">Deutsche Presseakademie</span>
+        <span class="context-divider">·</span>
+        <span class="context-logo-item">National University of Singapore</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-label">
+          <span data-lang-de>Kontakt</span><span data-lang-en>Contact</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang-de>Sprechen<br>wir <em>miteinander.</em></span>
+          <span data-lang-en>Let's <em>talk.</em></span>
+        </h2>
+        <p class="contact-text">
+          <span data-lang-de>Kein unverbindliches Erstgespräch mit Verkaufsabsicht – sondern ein ehrliches Gespräch darüber, ob und wie ich Ihnen helfen kann.</span>
+          <span data-lang-en>No sales-driven discovery call – just an honest conversation about whether and how I can help you.</span>
+        </p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-label">E-Mail</div>
+          <div class="contact-detail-value">
+            <a href="mailto:info@commnsense.de">info@commnsense.de</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-label">
+            <span data-lang-de>Standort</span><span data-lang-en>Location</span>
+          </div>
+          <div class="contact-detail-value">Königstein im Taunus</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-label">
+            <span data-lang-de>Formate</span><span data-lang-en>Formats</span>
+          </div>
+          <div class="contact-detail-value" style="font-size: 1rem; font-family: 'DM Sans', sans-serif; color: var(--grey); font-weight: 300;">
+            <span data-lang-de>Vor Ort · Online · Inhouse</span>
+            <span data-lang-en>On-site · Online · In-house</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="form-group">
+          <label class="form-label">
+            <span data-lang-de>Name</span><span data-lang-en>Name</span>
+          </label>
+          <input type="text" class="form-input" placeholder="Dr. Max Mustermann" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-Mail</label>
+          <input type="email" class="form-input" placeholder="m.mustermann@beispiel.de" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <span data-lang-de>Anliegen</span><span data-lang-en>Topic</span>
+          </label>
+          <select class="form-select form-input">
+            <option value="" disabled selected>
+              <span data-lang-de>Bitte wählen</span>
+              <span data-lang-en>Please select</span>
+            </option>
+            <option data-lang-de value="coaching">Führungskräfte-Coaching</option>
+            <option data-lang-en value="coaching">Executive Coaching</option>
+            <option data-lang-de value="beratung">Kommunikationsberatung</option>
+            <option data-lang-en value="beratung">Communication Consulting</option>
+            <option data-lang-de value="workshop">Workshop / Training</option>
+            <option data-lang-en value="workshop">Workshop / Training</option>
+            <option data-lang-de value="avgs">AVGS-Coaching</option>
+            <option data-lang-en value="avgs">AVGS Coaching</option>
+            <option data-lang-de value="sonstiges">Sonstiges</option>
+            <option data-lang-en value="sonstiges">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <span data-lang-de>Nachricht</span><span data-lang-en>Message</span>
+          </label>
+          <textarea class="form-textarea" placeholder="..."></textarea>
+        </div>
+        <button class="btn-primary form-submit" onclick="handleSubmit()">
+          <span data-lang-de>Nachricht senden</span>
+          <span data-lang-en>Send message</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">comm<span>&</span>sense · Dr. Christian Chua</div>
+    <ul class="footer-links">
+      <li><a href="#" data-lang-de>Impressum</a><a href="#" data-lang-en>Legal Notice</a></li>
+      <li><a href="#" data-lang-de>Datenschutz</a><a href="#" data-lang-en>Privacy Policy</a></li>
+    </ul>
+    <div class="footer-copy">© <span id="year"></span> comm&amp;sense</div>
+  </footer>
+
+  <script>
+    // ── YEAR ──
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── LANG SWITCH ──
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+      });
+      // Update select options visibility
+      updateSelectOptions(lang);
+    }
+
+    function updateSelectOptions(lang) {
+      const select = document.querySelector('.form-select');
+      if (!select) return;
+      const deOptions = [
+        { value: '', text: 'Bitte wählen' },
+        { value: 'coaching', text: 'Führungskräfte-Coaching' },
+        { value: 'beratung', text: 'Kommunikationsberatung' },
+        { value: 'workshop', text: 'Workshop / Training' },
+        { value: 'avgs', text: 'AVGS-Coaching' },
+        { value: 'sonstiges', text: 'Sonstiges' }
+      ];
+      const enOptions = [
+        { value: '', text: 'Please select' },
+        { value: 'coaching', text: 'Executive Coaching' },
+        { value: 'beratung', text: 'Communication Consulting' },
+        { value: 'workshop', text: 'Workshop / Training' },
+        { value: 'avgs', text: 'AVGS Coaching' },
+        { value: 'sonstiges', text: 'Other' }
+      ];
+      const opts = lang === 'en' ? enOptions : deOptions;
+      const currentVal = select.value;
+      select.innerHTML = opts.map((o, i) =>
+        `<option value="${o.value}"${i === 0 ? ' disabled' : ''}${o.value === currentVal ? ' selected' : ''}>${o.text}</option>`
+      ).join('');
+      if (!currentVal) select.selectedIndex = 0;
+    }
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FORM SUBMIT (placeholder) ──
+    function handleSubmit() {
+      const btn = document.querySelector('.form-submit');
+      const de = document.documentElement.lang !== 'en';
+      btn.textContent = de ? 'Wird gesendet …' : 'Sending …';
+      setTimeout(() => {
+        btn.textContent = de ? '✓ Nachricht gesendet' : '✓ Message sent';
+        btn.style.background = 'rgba(190,218,170,0.6)';
+      }, 1200);
+    }
+
+    // ── SMOOTH NAV ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
