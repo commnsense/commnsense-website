@@ -383,6 +383,22 @@ async function generate() {
     return;
   }
   hideError();
+
+  // Send to Formspree
+  const userEmail = (document.getElementById("user-email") || {}).value || "";
+  fetch("https://formspree.io/f/mykvyqjy", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      _subject: "Neue IKIGAI-Analyse von " + (userEmail || "Anonym"),
+      "E-Mail": userEmail || "(keine Angabe)",
+      "Gut koennen": gut,
+      "Gerne machen": gerne,
+      "Welt braucht": welt,
+      "Geld verdienen": geld
+    })
+  }).catch(()=>{});
+
   document.getElementById("generate").disabled = true;
   document.getElementById("loader").classList.add("active");
   document.getElementById("results").classList.remove("visible");
@@ -404,9 +420,15 @@ Antworte ausschließlich als JSON (kein Markdown, keine Backticks), exakt in die
 {"passion":"...","mission":"...","profession":"...","vocation":"...","purposeTitle":"...","purposeText":"..."}`;
 
   try {
+    const API_KEY = "DEIN-API-KEY-HIER"; // sk-ant-api03-...
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method:"POST",
-      headers:{"Content-Type":"application/json"},
+      headers:{
+        "Content-Type":"application/json",
+        "x-api-key": API_KEY,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
       body: JSON.stringify({
         model:"claude-sonnet-4-20250514",
         max_tokens:1000,
@@ -418,7 +440,16 @@ Antworte ausschließlich als JSON (kein Markdown, keine Backticks), exakt in die
     const json = JSON.parse(raw.replace(/```json|```/g,"").trim());
     renderResults(json);
   } catch(e) {
-    showError("Analyse fehlgeschlagen. Bitte erneut versuchen. (" + e.message + ")");
+    // API not available – show personal follow-up message
+    const r = document.getElementById("results");
+    r.innerHTML = `
+      <div style="text-align:center;padding:3rem 1rem;">
+        <p style="font-family:'Cormorant Garant',serif;font-size:2rem;font-weight:300;color:#1A1612;margin-bottom:1rem;">Danke – deine Eingaben sind angekommen.</p>
+        <p style="font-size:0.95rem;color:#6B6158;line-height:1.85;max-width:500px;margin:0 auto 2rem;">Ich melde mich persönlich bei dir mit einer individuellen Auswertung. Versprochen.</p>
+        <a href="https://calendly.com/christian-chua-bidz/30min" target="_blank" style="display:inline-block;padding:0.9rem 2.2rem;background:#1A1612;color:#F5F0E8;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Coaching-Sitzung vereinbaren</a>
+      </div>`;
+    r.classList.add("visible");
+    r.scrollIntoView({behavior:"smooth"});
   } finally {
     document.getElementById("generate").disabled = false;
     document.getElementById("loader").classList.remove("active");
