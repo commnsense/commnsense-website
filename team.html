@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Angebot – comm&amp;sense</title>
-  <meta name="description" content="Kurse, Workshops und Lernformate von Dr. Christian Chua – comm&sense." />
+  <title>Teamtage – comm&amp;sense</title>
+  <meta name="description" content="Teamtage für Führungskräfte im Finanzumfeld – drei Formate von Dr. Christian Chua, comm&sense." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0B0B'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='22' font-style='italic' fill='%23BEDAAA'%3E%26%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -359,6 +359,128 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
     }
+
+    /* ── TEAM HERO ── */
+    .team-intro-note {
+      margin-top: 2rem;
+      font-size: 0.92rem;
+      color: var(--sage);
+      font-weight: 300;
+      border-left: 2px solid var(--sage);
+      padding-left: 1.25rem;
+      max-width: 56ch;
+    }
+
+    /* ── FORMATE GRID ── */
+    .tt-section { padding: 5rem 4rem; max-width: 1200px; margin: 0 auto; }
+    .tt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 3rem;
+    }
+    @media (max-width: 900px) {
+      .tt-grid { grid-template-columns: 1fr; }
+      .tt-section { padding: 5rem 1.5rem; }
+    }
+
+    .tt-card {
+      background: var(--black);
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.35s;
+    }
+    .tt-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--sage);
+      transition: width 0.4s ease;
+    }
+    .tt-card:hover { background: rgba(190,218,170,0.04); }
+    .tt-card:hover::after { width: 100%; }
+
+    .tt-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 300;
+      color: rgba(242,240,235,0.3);
+      line-height: 1; margin-bottom: 1rem;
+    }
+    .tt-dimension {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 0.75rem;
+    }
+    .tt-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400;
+      color: var(--off-white); margin-bottom: 1rem; line-height: 1.2;
+    }
+    .tt-occasion {
+      font-size: 0.88rem; color: #C0C0C0;
+      font-weight: 300; line-height: 1.8; margin-bottom: 1.5rem;
+    }
+    .tt-steps {
+      list-style: none; margin-bottom: 1.5rem;
+    }
+    .tt-steps li {
+      display: flex; align-items: baseline; gap: 0.65rem;
+      font-size: 0.8rem; color: #B8B8B8; font-weight: 300;
+      line-height: 1.7;
+    }
+    .tt-steps li::before { content: '—'; color: var(--sage); flex-shrink: 0; }
+
+    .tt-result {
+      border-left: 2px solid var(--sage);
+      padding-left: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .tt-result-label {
+      font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--grey); display: block; margin-bottom: 0.4rem;
+    }
+    .tt-result p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300; font-size: 1.05rem;
+      line-height: 1.5; color: var(--off-white);
+    }
+
+    .tt-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
+    .tt-tag {
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sage); border: 1px solid rgba(190,218,170,0.4);
+      padding: 0.2rem 0.65rem; display: inline-block;
+    }
+    .tt-tag-price { background: rgba(190,218,170,0.08); font-weight: 500; }
+
+    /* ── TEAM CTA ── */
+    .team-cta {
+      border-top: 1px solid var(--border);
+      padding: 5rem 4rem;
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 3rem;
+    }
+    @media (max-width: 900px) { .team-cta { flex-direction: column; padding: 4rem 1.5rem; align-items: flex-start; } }
+    .team-cta-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300; margin-bottom: 0.75rem;
+    }
+    .team-cta-text h2 em { font-style: italic; color: var(--sage); }
+    .team-cta-text p { font-size: 0.95rem; color: #C0C0C0; font-weight: 300; max-width: 42ch; line-height: 1.8; }
+    .team-cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-ghost {
+      display: inline-block; padding: 0.9rem 2.2rem;
+      border: 1px solid var(--border); color: var(--grey);
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: all 0.25s; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
 </style>
 </head>
 <body>
@@ -405,97 +527,101 @@
 
   <!-- HERO -->
   <div class="lab-hero">
-    <p class="section-label">Dialog Lab</p>
+    <p class="section-label">Teamtage</p>
     <h1 class="lab-title">
-      Resonanzraum<span class="title-dot">.</span><br>
-      <em>Akademie für Kommunikation,<br>Coaching &amp; Entwicklung</em>
+      Ein Tag<span class="title-dot">.</span><br>
+      <em>Der etwas bewegt.</em>
     </h1>
     <p class="lab-intro">
-      Lernen mit Wirkung: Strukturierte Lernformate für Kommunikation, Führung und persönliche Entwicklung – kompakt, praxisnah und auf den Punkt. Einzeln buchbar oder als Inhouse-Paket. Mit besten Referenzen und Referent*innen.
+      Teamtage sind Präsenzformate für Teams, die mehr brauchen als eine
+      weitere Feedbackrunde: Klarheit nach Umbrüchen, einen tragfähigen Umgang mit
+      Dauerbelastung oder die Fähigkeit, unangenehme Gespräche tatsächlich zu führen.
+      Fester Ablauf, fester Preis, ein Ergebnis, das über den Tag hinaus trägt.
+      Und dazu: ganz viel Spaß und Teambuilding.
+    </p>
+    <p class="team-intro-note">
+      Die Struktur steht — Fälle, Beispiele und Schwerpunkte kommen aus Ihrem
+      Kontext und werden im Vorgespräch abgestimmt.
     </p>
   </div>
 
-  <!-- KURSE -->
-  <div class="kurse-section">
-    <p class="section-label">Aktuelle Formate</p>
-    <div class="kurse-grid reveal">
+  <!-- FORMATE -->
+  <div class="tt-section">
+    <p class="section-label">Drei Formate</p>
+    <div class="tt-grid reveal">
 
-      <div class="kurs-card" style="cursor:pointer;" onclick="location.href='fuehrungskommunikation.html'">
-        <div class="kurs-num">01</div>
-        <div><span class="kurs-segment">Executive Education</span> <span class="kurs-format">Seminar</span></div>
-        <div class="kurs-name">Führungskommunikation<br>als Erfolgsfaktor</div>
-        <p class="kurs-desc">
-          Sieben Module. Vier Tage. Ein Duo mit über 50 Jahren Praxiserfahrung.
-          Für Senior Leaders und Führungskräfte, die Kommunikation als strategisches
-          Instrument nutzen wollen.
+      <div class="tt-card">
+        <div class="tt-num">01</div>
+        <div class="tt-dimension">Struktur</div>
+        <div class="tt-name">Klartext: Wie wir<br>zusammenarbeiten wollen</div>
+        <p class="tt-occasion">
+          Wenn nach Umbau, Fusion oder Führungswechsel alle formal ein Team sind —
+          und faktisch drei.
         </p>
-        <div class="kurs-meta">14.–17. September 2026 &nbsp;·&nbsp; <span>1.490 € p. P.</span> &nbsp;·&nbsp; <span>Live-Online</span></div>
-        <div style="margin-top:1.25rem; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--sage);">Details & Anmeldung →</div>
+        <ul class="tt-steps">
+          <li>Standortbestimmung</li>
+          <li>Was trägt, was reibt</li>
+          <li>Entscheidungswege, Erreichbarkeit, Eskalation</li>
+          <li>Vereinbarung</li>
+        </ul>
+        <div class="tt-result">
+          <span class="tt-result-label">Was am Ende steht</span>
+          <p>Eine Zusammenarbeitsvereinbarung. Eine Seite. Von allen getragen.</p>
+        </div>
+        <div class="tt-tags">
+          <span class="tt-tag">1 Tag</span>
+          <span class="tt-tag">8–16 Personen</span>
+          <span class="tt-tag tt-tag-price">2.900 €</span>
+        </div>
       </div>
 
-      <div class="kurs-card" style="cursor:pointer;" onclick="location.href='team.html'">
-        <div class="kurs-num">02</div>
-        <div><span class="kurs-segment">Teamentwicklung</span> <span class="kurs-format">Workshop</span></div>
-        <div class="kurs-name">Teamtage</div>
-        <p class="kurs-desc">
-          Ein Tag, der etwas verändert: für Teams nach Umbau, unter Dauerbelastung
-          oder mit ungelösten Konflikten. Drei Formate, ein Prinzip – am Ende steht
-          ein greifbares Ergebnis, keine Befindlichkeitsrunde.
+      <div class="tt-card">
+        <div class="tt-num">02</div>
+        <div class="tt-dimension">Energie</div>
+        <div class="tt-name">Belastung steuern<br>statt aushalten</div>
+        <p class="tt-occasion">
+          Wenn der dritte Umbau in vier Jahren durch ist, das Team noch
+          funktioniert — aber die Luft raus ist.
         </p>
-        <div class="kurs-meta">Dauer: <span>1 Tag</span> &nbsp;·&nbsp; Format: <span>Präsenz / Inhouse</span> &nbsp;·&nbsp; <span>ab 2.900 €</span></div>
-        <div style="margin-top:1.25rem; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--sage);">Formate entdecken →</div>
+        <ul class="tt-steps">
+          <li>Belastungslandkarte des Teams</li>
+          <li>Systembedingt oder selbstgemacht</li>
+          <li>Was streichen wir, was verhandeln wir nach oben</li>
+          <li>Entscheidungen</li>
+        </ul>
+        <div class="tt-result">
+          <span class="tt-result-label">Was am Ende steht</span>
+          <p>Drei Entscheidungen der Führungskraft. Verbindlich terminiert.</p>
+        </div>
+        <div class="tt-tags">
+          <span class="tt-tag">1 Tag</span>
+          <span class="tt-tag">8–14 Personen</span>
+          <span class="tt-tag tt-tag-price">2.900 €</span>
+        </div>
       </div>
 
-      <div class="kurs-card">
-        <div class="kurs-num">03</div>
-        <div><span class="kurs-segment">Persönliche Entwicklung</span> <span class="kurs-format">Training</span></div>
-        <div class="kurs-name">Bewerbung &amp;<br>Personal Branding</div>
-        <p class="kurs-desc">
-          Wie du dich überzeugend positionierst, präsentierst und
-          in Erinnerung bleibst – online wie offline.
+      <div class="tt-card">
+        <div class="tt-num">03</div>
+        <div class="tt-dimension">Können</div>
+        <div class="tt-name">Unangenehme<br>Gespräche führen</div>
+        <p class="tt-occasion">
+          Wenn Leistungsthemen liegen bleiben, Konflikte an Schnittstellen
+          festhängen und Nein sagen nach oben schwerfällt.
         </p>
-        <div class="kurs-meta">Dauer: <span>2 Tage</span> &nbsp;·&nbsp; Format: <span>Präsenz</span></div>
-      </div>
-
-      <div class="kurs-card">
-        <div class="kurs-num">04</div>
-        <div><span class="kurs-segment">Executive Education</span> <span class="kurs-format">Seminar</span></div>
-        <div class="kurs-name">Kommunikation<br>mit KI</div>
-        <p class="kurs-desc">
-          Wie KI-Tools die eigene Kommunikation schärfen –
-          ohne die menschliche Stimme zu verlieren.
-        </p>
-        <div class="kurs-meta">Dauer: <span>1 Tag</span> &nbsp;·&nbsp; Format: <span>Präsenz / Online</span></div>
-      </div>
-
-      <div class="kurs-card">
-        <div class="kurs-num">05</div>
-        <div><span class="kurs-segment">Coaching</span> <span class="kurs-format">One-on-one</span></div>
-        <div class="kurs-name">Was treibt<br>dich an?</div>
-        <p class="kurs-desc">
-          Ein halber Tag für die wesentliche Frage: Wo liegt der Schnittpunkt
-          von Stärke, Freude, Sinn und Einkommen?
-        </p>
-        <div class="kurs-meta">Dauer: <span>½ Tag</span> &nbsp;·&nbsp; Format: <span>Gruppe / Einzel</span></div>
-      </div>
-
-      <div class="kurs-card">
-        <div class="kurs-num">06</div>
-        <div><span class="kurs-segment">Retreat</span> <span class="kurs-format">Workshop</span></div>
-        <div class="kurs-name">Bin ich hier<br>noch richtig?</div>
-        <p class="kurs-desc">
-          Ein paar Tage im Kloster, fernab vom Corporate-Alltag – gemeinsam
-          mit anderen, die genau wissen, wovon Sie sprechen. Ehrliche
-          Bestandsaufnahme, echte Stille, und die Midlife-Crisis lieber hier
-          verhindern als später im Büro.
-        </p>
-        <div class="kurs-meta">Dauer: <span>3 Tage</span> &nbsp;·&nbsp; Format: <span>Kloster / Präsenz</span> &nbsp;·&nbsp; <span>Preis auf Anfrage</span></div>
-      </div>
-
-      <div class="kurs-card" style="display:flex; align-items:center; justify-content:center; min-height:280px;">
-        <div style="text-align:center;">
-          <div style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; font-style:italic; color:var(--grey); margin-bottom:1rem;">Weiteres in Planung.</div>
-          <a href="mailto:anfrage@commnsense.de" style="font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage); text-decoration:none;">Anfrage stellen →</a>
+        <ul class="tt-steps">
+          <li>Eigene Fälle</li>
+          <li>Gesprächsarchitektur</li>
+          <li>Übung mit Feedback</li>
+          <li>Transferplan</li>
+        </ul>
+        <div class="tt-result">
+          <span class="tt-result-label">Was am Ende steht</span>
+          <p>Jede Person hat ihr anstehendes Gespräch vorbereitet — und einmal geführt.</p>
+        </div>
+        <div class="tt-tags">
+          <span class="tt-tag">1 Tag</span>
+          <span class="tt-tag">max. 12 Personen</span>
+          <span class="tt-tag tt-tag-price">2.900 €</span>
         </div>
       </div>
 
@@ -503,14 +629,19 @@
   </div>
 
   <!-- CTA -->
-  <div class="lab-cta reveal">
-    <div class="lab-cta-text">
-      <h2>Maßgeschneidert<br>für Ihr <em>Team.</em></h2>
-      <p>Alle Formate sind auch als Inhouse-Veranstaltung buchbar –
-         angepasst auf Ihre Branche, Ihre Zielgruppe, Ihren Kontext.</p>
+  <div class="team-cta reveal">
+    <div class="team-cta-text">
+      <h2>Passt das zu<br><em>Ihrem Team?</em></h2>
+      <p>30 Minuten, um das zu klären — unverbindlich, ohne Vorbereitung
+         Ihrerseits. Im Preis jedes Formats bereits enthalten: Vorgespräch,
+         Durchführung, Ergebnisdokumentation.</p>
     </div>
-    <a href="mailto:anfrage@commnsense.de" class="btn-primary">Anfrage stellen</a>
+    <div class="team-cta-actions">
+      <a href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener" class="btn-primary">30 Min. Erstgespräch buchen</a>
+      <a href="kurse.html" class="btn-ghost">Zurück zum Angebot</a>
+    </div>
   </div>
+
 
   <footer>
     <div class="footer-brand">comm<span>&</span>sense · Dr. Christian Chua</div>
