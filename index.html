@@ -1194,6 +1194,14 @@
       .fb-quotes { grid-template-columns: 1fr; }
       .fb-cta { flex-direction: column; align-items: flex-start; }
     }
+
+    /* ── NAV SCROLL STATE ── */
+    nav { transition: background 0.3s ease, backdrop-filter 0.3s ease; }
+    nav.scrolled {
+      background: rgba(11,11,11,0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
   </style>
 </head>
 <body>
@@ -2187,6 +2195,15 @@ Antworte ausschließlich als JSON (kein Markdown, keine Backticks):
         }
       });
     });
+
+/* === NAV SCROLL === */
+(function () {
+  const navEl = document.querySelector('nav');
+  if (!navEl) return;
+  const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 20);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
   </script>
 
     <!-- IMPRESSUM MODAL -->

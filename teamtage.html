@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>comm&amp;sense — Teamtage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════════════════════════
+   Tokens aus index.html — unverändert übernommen
+   ══════════════════════════════════════════════════════════ */
+:root{
+  --black:#0B0B0B;
+  --off-white:#F2F0EB;
+  --sage:#BEDAAA;
+  --grey:#9C9C9C;
+  --muted:#3A3A3A;
+  --border:rgba(190,218,170,0.18);
+  --serif:'Cormorant Garamond','Cormorant Garant',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--off-white);
+  font-family:'DM Sans',sans-serif;
+  font-size:16px;line-height:1.7;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.025;pointer-events:none;z-index:9999;
+}
+html[lang="en"] [data-lang-de]{display:none;}
+html[lang="de"] [data-lang-en]{display:none;}
+
+section{padding:8rem 4rem;}
+.section-label{
+  font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.section-label::before{content:'';display:block;width:24px;height:1px;background:var(--sage);}
+.section-title{
+  font-family:var(--serif);
+  font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;line-height:1.1;margin-bottom:3rem;
+}
+.section-title em{font-style:italic;color:var(--sage);}
+.title-dot{color:var(--off-white)!important;font-style:normal;}
+
+.btn-primary{
+  display:inline-block;padding:0.9rem 2.2rem;background:var(--sage);color:var(--black);
+  font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:pointer;transition:all 0.25s;
+}
+.btn-primary:hover{background:var(--off-white);transform:translateY(-2px);}
+.btn-ghost{
+  display:inline-block;padding:0.9rem 2.2rem;border:1px solid var(--border);color:var(--grey);
+  font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  text-decoration:none;transition:all 0.25s;
+}
+.btn-ghost:hover{border-color:var(--sage);color:var(--sage);transform:translateY(-2px);}
+
+/* ══════════════════════════════════════════════════════════
+   TEAMTAGE — neue Klassen, Präfix .tt-
+   ══════════════════════════════════════════════════════════ */
+#teamtage{border-top:1px solid var(--border);}
+.tt-header{
+  max-width:1200px;margin:0 auto 5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;
+}
+.tt-intro{color:#C0C0C0;font-size:1.05rem;font-weight:300;line-height:1.9;max-width:44ch;}
+.tt-intro strong{color:var(--off-white);font-weight:400;}
+
+.tt-grid{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);
+}
+.tt-card{
+  background:var(--black);padding:3rem 2.5rem;
+  display:flex;flex-direction:column;
+  transition:background 0.3s;position:relative;overflow:hidden;
+}
+.tt-card::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:2px;
+  background:var(--sage);transition:width 0.4s ease;
+}
+.tt-card:hover{background:rgba(255,255,255,0.04);}
+.tt-card:hover::after{width:100%;}
+
+.tt-num{
+  font-family:var(--serif);font-size:3rem;font-weight:300;
+  color:rgba(190,218,170,0.15);line-height:1;margin-bottom:1.25rem;
+}
+.tt-dimension{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:0.75rem;
+}
+.tt-name{
+  font-family:var(--serif);font-size:1.5rem;font-weight:400;line-height:1.2;
+  margin-bottom:1rem;color:var(--off-white);
+}
+.tt-occasion{font-size:0.88rem;color:#B8B8B8;line-height:1.8;font-weight:300;margin-bottom:1.75rem;}
+
+.tt-steps{list-style:none;margin-bottom:1.75rem;}
+.tt-steps li{
+  display:flex;align-items:baseline;gap:0.75rem;
+  font-size:0.82rem;color:#C0C0C0;font-weight:300;line-height:1.7;
+}
+.tt-steps li::before{content:'—';color:var(--sage);flex-shrink:0;}
+
+.tt-result{
+  border-left:2px solid var(--sage);padding-left:1.5rem;margin-bottom:1.75rem;
+}
+.tt-result-label{
+  font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--grey);display:block;margin-bottom:0.5rem;
+}
+.tt-result p{
+  font-family:var(--serif);font-size:1.15rem;font-style:italic;font-weight:300;
+  line-height:1.5;color:var(--off-white);
+}
+
+.tt-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:auto;margin-bottom:1.5rem;}
+.tag{
+  font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--sage);border:1px solid rgba(190,218,170,0.55);
+  padding:0.25rem 0.7rem;border-radius:1px;
+}
+.tag-price{background:rgba(190,218,170,0.10);font-weight:500;}
+
+.tt-cta{
+  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--grey);text-decoration:none;
+  border-bottom:1px solid var(--border);padding-bottom:0.35rem;
+  align-self:flex-start;transition:all 0.25s;
+}
+.tt-cta:hover{color:var(--sage);border-bottom-color:var(--sage);}
+
+/* ── Fuß der Sektion ── */
+.tt-foot{
+  max-width:1200px;margin:4rem auto 0;padding-top:3rem;
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:5fr 4fr;gap:4rem;align-items:start;
+}
+.tt-tailor{
+  font-family:var(--serif);font-size:1.4rem;font-style:italic;font-weight:300;
+  color:var(--off-white);line-height:1.5;
+  border-left:2px solid var(--sage);padding-left:2rem;
+}
+.tt-tailor small{
+  display:block;font-family:'DM Sans',sans-serif;font-style:normal;
+  font-size:0.85rem;color:#B8B8B8;font-weight:300;line-height:1.8;margin-top:1rem;
+}
+.tt-terms{display:flex;flex-direction:column;gap:1.25rem;}
+.tt-term-label{
+  font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:0.35rem;
+}
+.tt-term-value{font-size:0.88rem;color:#C0C0C0;font-weight:300;line-height:1.7;}
+.tt-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.5rem;}
+
+/* ── Responsive ── */
+@media (max-width:1000px){
+  section{padding:5rem 2rem;}
+  .tt-header,.tt-foot{grid-template-columns:1fr;gap:2.5rem;}
+  .tt-grid{grid-template-columns:1fr;}
+  .tt-card{padding:2.5rem 2rem;}
+}
+
+/* ── Druck: invertiert, eine Seite ── */
+@media print{
+  @page{size:A4;margin:12mm 12mm;}
+  body{background:#fff;color:#0B0B0B;font-size:9pt;line-height:1.5;}
+  body::before{display:none;}
+  section{padding:0;}
+  .section-title{font-size:26pt;margin-bottom:1rem;}
+  .section-title em{color:#5C7A5A;}
+  .section-label{color:#5C7A5A;}
+  .section-label::before{background:#5C7A5A;}
+  .tt-header{margin-bottom:1.5rem;gap:1.5rem;}
+  .tt-intro{color:#3A3A3A;font-size:9pt;line-height:1.6;}
+  .tt-intro strong{color:#0B0B0B;}
+  .tt-grid{gap:0;background:none;border-top:1px solid #C9C4B4;}
+  .tt-card{background:none;padding:0.9rem 1rem;border-right:1px solid #C9C4B4;break-inside:avoid;}
+  .tt-card:nth-child(3n){border-right:none;}
+  .tt-card::after{display:none;}
+  .tt-num{color:#D6E4CB;font-size:2rem;margin-bottom:0.5rem;}
+  .tt-dimension,.tt-cta{color:#5C7A5A;}
+  .tt-name{color:#0B0B0B;font-size:1.15rem;}
+  .tt-occasion,.tt-steps li,.tt-term-value{color:#3A3A3A;}
+  .tt-result{border-left-color:#5C7A5A;padding-left:0.9rem;}
+  .tt-result p{color:#0B0B0B;font-size:1rem;}
+  .tag{color:#3A3A3A;border-color:#C9C4B4;}
+  .tag-price{background:none;}
+  .tt-cta{display:none;}
+  .tt-foot{margin-top:1.5rem;padding-top:1rem;border-top:1px solid #C9C4B4;gap:2rem;}
+  .tt-tailor{font-size:1.05rem;color:#0B0B0B;border-left-color:#5C7A5A;padding-left:1rem;}
+  .tt-tailor small{color:#3A3A3A;font-size:8pt;}
+  .tt-term-label{color:#5C7A5A;}
+  .tt-actions{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     AB HIER 1:1 IN index.html EINSETZEN — z. B. direkt nach </section> von #services.
+     Die .tt-Klassen sind neu und kollidieren mit nichts Bestehendem.
+     ═══════════════════════════════════════════════════════════ -->
+<section id="teamtage">
+
+  <div class="tt-header">
+    <div>
+      <div class="section-label">
+        <span data-lang-de>Teamtage</span><span data-lang-en>Team days</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang-de>Ein Tag<span class="title-dot">.</span><br>Ein <em>Ergebnis</em><span class="title-dot">.</span></span>
+        <span data-lang-en>One day<span class="title-dot">.</span><br>One <em>result</em><span class="title-dot">.</span></span>
+      </h2>
+    </div>
+    <p class="tt-intro">
+      <span data-lang-de>Sechs Formate für Führungskräfte und ihre Teams. Fester Ablauf, fester Preis, ein klares Ergebnis am Ende des Tages. <strong>Die Struktur steht — die Inhalte kommen aus Ihrem Kontext.</strong> Fälle, Beispiele und Schwerpunkte legen wir im Vorgespräch fest.</span>
+      <span data-lang-en>Six formats for leaders and their teams. Fixed structure, fixed price, one clear result at the end of the day. <strong>The structure is set — the content comes from your context.</strong> Cases, examples and focus areas are agreed in a preliminary conversation.</span>
+    </p>
+  </div>
+
+  <div class="tt-grid">
+
+    <!-- ── Format 01 ── -->
+    <article class="tt-card">
+      <div class="tt-num">01</div>
+      <div class="tt-dimension">
+        <span data-lang-de>Struktur</span><span data-lang-en>Structure</span>
+      </div>
+      <h3 class="tt-name">
+        <span data-lang-de>Klartext: Wie wir zusammenarbeiten wollen</span>
+        <span data-lang-en>Straight talk: How we want to work together</span>
+      </h3>
+      <p class="tt-occasion">
+        <span data-lang-de>Wenn nach Umbau, Fusion oder Führungswechsel alle formal ein Team sind — und faktisch drei.</span>
+        <span data-lang-en>When restructuring, merger or a change of leadership has left one team on paper — and three in practice.</span>
+      </p>
+      <ul class="tt-steps">
+        <li><span data-lang-de>Standortbestimmung</span><span data-lang-en>Taking stock</span></li>
+        <li><span data-lang-de>Was trägt, was reibt</span><span data-lang-en>What works, what grates</span></li>
+        <li><span data-lang-de>Entscheidungswege, Erreichbarkeit, Eskalation</span><span data-lang-en>Decision paths, availability, escalation</span></li>
+        <li><span data-lang-de>Vereinbarung</span><span data-lang-en>Agreement</span></li>
+      </ul>
+      <div class="tt-result">
+        <span class="tt-result-label"><span data-lang-de>Was am Ende steht</span><span data-lang-en>What you leave with</span></span>
+        <p>
+          <span data-lang-de>Eine Zusammenarbeits&shy;vereinbarung. Eine Seite. Von allen getragen.</span>
+          <span data-lang-en>A working agreement. One page. Owned by everyone.</span>
+        </p>
+      </div>
+      <div class="tt-tags">
+        <span class="tag"><span data-lang-de>1 Tag</span><span data-lang-en>1 day</span></span>
+        <span class="tag"><span data-lang-de>8–16 Personen</span><span data-lang-en>8–16 people</span></span>
+        <span class="tag tag-price">2.900 €</span>
+      </div>
+      <a class="tt-cta" href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener">
+        <span data-lang-de>Termin anfragen</span><span data-lang-en>Request a date</span>
+      </a>
+    </article>
+
+    <!-- ── Format 02 ── -->
+    <article class="tt-card">
+      <div class="tt-num">02</div>
+      <div class="tt-dimension">
+        <span data-lang-de>Energie</span><span data-lang-en>Energy</span>
+      </div>
+      <h3 class="tt-name">
+        <span data-lang-de>Belastung steuern statt aushalten</span>
+        <span data-lang-en>Steering pressure instead of enduring it</span>
+      </h3>
+      <p class="tt-occasion">
+        <span data-lang-de>Wenn der dritte Umbau in vier Jahren durch ist, das Team noch funktioniert — aber die Luft raus ist.</span>
+        <span data-lang-en>When the third reorganisation in four years is over, the team still delivers — but the energy is gone.</span>
+      </p>
+      <ul class="tt-steps">
+        <li><span data-lang-de>Belastungslandkarte des Teams</span><span data-lang-en>Mapping the team's load</span></li>
+        <li><span data-lang-de>Systembedingt oder selbstgemacht</span><span data-lang-en>System-driven or self-inflicted</span></li>
+        <li><span data-lang-de>Was streichen wir, was verhandeln wir nach oben</span><span data-lang-en>What we drop, what we escalate</span></li>
+        <li><span data-lang-de>Entscheidungen</span><span data-lang-en>Decisions</span></li>
+      </ul>
+      <div class="tt-result">
+        <span class="tt-result-label"><span data-lang-de>Was am Ende steht</span><span data-lang-en>What you leave with</span></span>
+        <p>
+          <span data-lang-de>Drei Entscheidungen der Führungskraft. Verbindlich terminiert.</span>
+          <span data-lang-en>Three decisions by the leader. With firm deadlines.</span>
+        </p>
+      </div>
+      <div class="tt-tags">
+        <span class="tag"><span data-lang-de>1 Tag</span><span data-lang-en>1 day</span></span>
+        <span class="tag"><span data-lang-de>8–14 Personen</span><span data-lang-en>8–14 people</span></span>
+        <span class="tag tag-price">2.900 €</span>
+      </div>
+      <a class="tt-cta" href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener">
+        <span data-lang-de>Termin anfragen</span><span data-lang-en>Request a date</span>
+      </a>
+    </article>
+
+    <!-- ── Format 03 ── -->
+    <article class="tt-card">
+      <div class="tt-num">03</div>
+      <div class="tt-dimension">
+        <span data-lang-de>Können</span><span data-lang-en>Capability</span>
+      </div>
+      <h3 class="tt-name">
+        <span data-lang-de>Unangenehme Gespräche führen</span>
+        <span data-lang-en>Having the difficult conversations</span>
+      </h3>
+      <p class="tt-occasion">
+        <span data-lang-de>Wenn Leistungsthemen liegen bleiben, Konflikte an Schnittstellen festhängen und Nein sagen nach oben schwerfällt.</span>
+        <span data-lang-en>When performance issues linger, conflicts stall at the interfaces, and saying no upwards feels impossible.</span>
+      </p>
+      <ul class="tt-steps">
+        <li><span data-lang-de>Eigene Fälle</span><span data-lang-en>Your own cases</span></li>
+        <li><span data-lang-de>Gesprächsarchitektur</span><span data-lang-en>Conversation architecture</span></li>
+        <li><span data-lang-de>Übung mit Feedback</span><span data-lang-en>Practice with feedback</span></li>
+        <li><span data-lang-de>Transferplan</span><span data-lang-en>Transfer plan</span></li>
+      </ul>
+      <div class="tt-result">
+        <span class="tt-result-label"><span data-lang-de>Was am Ende steht</span><span data-lang-en>What you leave with</span></span>
+        <p>
+          <span data-lang-de>Jede Person hat ihr anstehendes Gespräch vorbereitet — und einmal geführt.</span>
+          <span data-lang-en>Everyone has prepared their pending conversation — and had it once.</span>
+        </p>
+      </div>
+      <div class="tt-tags">
+        <span class="tag"><span data-lang-de>1 Tag</span><span data-lang-en>1 day</span></span>
+        <span class="tag"><span data-lang-de>max. 12 Personen</span><span data-lang-en>max. 12 people</span></span>
+        <span class="tag tag-price">2.900 €</span>
+      </div>
+      <a class="tt-cta" href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener">
+        <span data-lang-de>Termin anfragen</span><span data-lang-en>Request a date</span>
+      </a>
+    </article>
+
+    <!-- ── Format 04 ── -->
+    <article class="tt-card">
+      <div class="tt-num">04</div>
+      <div class="tt-dimension">
+        <span data-lang-de>Thema</span><span data-lang-en>Topic</span>
+      </div>
+      <h3 class="tt-name">
+        <span data-lang-de>Ein Thema in der Tiefe</span>
+        <span data-lang-en>One topic, in depth</span>
+      </h3>
+      <p class="tt-occasion">
+        <span data-lang-de>Ob Energiepolitik, Newsroom oder KI: Wenn ein aktuelles Thema das Team betrifft und mehr verdient als zwanzig Minuten im Jour fixe.</span>
+        <span data-lang-en>Energy policy, newsroom or AI: when a current topic affects the team and deserves more than twenty minutes in the weekly meeting.</span>
+      </p>
+      <ul class="tt-steps">
+        <li><span data-lang-de>Themenzuschnitt im Vorgespräch</span><span data-lang-en>Scoping the topic beforehand</span></li>
+        <li><span data-lang-de>Input — auf Wunsch mit externer Referent*in</span><span data-lang-en>Input — with an external speaker if desired</span></li>
+        <li><span data-lang-de>Übersetzung in den eigenen Kontext</span><span data-lang-en>Translating it into your context</span></li>
+        <li><span data-lang-de>Teambuilding an erster oder zweiter Stelle — Ihre Entscheidung</span><span data-lang-en>Team building first or second — your call</span></li>
+      </ul>
+      <div class="tt-result">
+        <span class="tt-result-label"><span data-lang-de>Was am Ende steht</span><span data-lang-en>What you leave with</span></span>
+        <p>
+          <span data-lang-de>Ein gemeinsamer Wissensstand — und drei Konsequenzen für die eigene Arbeit.</span>
+          <span data-lang-en>A shared level of knowledge — and three consequences for your own work.</span>
+        </p>
+      </div>
+      <div class="tt-tags">
+        <span class="tag"><span data-lang-de>1 Tag</span><span data-lang-en>1 day</span></span>
+        <span class="tag"><span data-lang-de>8–20 Personen</span><span data-lang-en>8–20 people</span></span>
+        <span class="tag tag-price"><span data-lang-de>ab 2.900 €</span><span data-lang-en>from €2,900</span></span>
+      </div>
+      <a class="tt-cta" href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener">
+        <span data-lang-de>Termin anfragen</span><span data-lang-en>Request a date</span>
+      </a>
+    </article>
+
+    <!-- ── Format 05 ── -->
+    <article class="tt-card">
+      <div class="tt-num">05</div>
+      <div class="tt-dimension">
+        <span data-lang-de>Event</span><span data-lang-en>Event</span>
+      </div>
+      <h3 class="tt-name">
+        <span data-lang-de>Ein Tag, der verbindet</span>
+        <span data-lang-en>A day that connects</span>
+      </h3>
+      <p class="tt-occasion">
+        <span data-lang-de>Wenn Networking, Zusammenarbeit und Kollegialität dran sind — oder einfach die Freude an einem gemeinsamen Tag.</span>
+        <span data-lang-en>When networking, collaboration and collegiality are due — or simply the pleasure of a day together.</span>
+      </p>
+      <ul class="tt-steps">
+        <li><span data-lang-de>Anlass und Anspruch klären</span><span data-lang-en>Clarifying occasion and ambition</span></li>
+        <li><span data-lang-de>Dramaturgie, Ort, Rahmen</span><span data-lang-en>Dramaturgy, venue, setting</span></li>
+        <li><span data-lang-de>Programm mit Substanz statt Beschäftigung</span><span data-lang-en>A programme with substance, not busywork</span></li>
+        <li><span data-lang-de>Gemeinsamer Abschluss</span><span data-lang-en>A shared closing</span></li>
+      </ul>
+      <div class="tt-result">
+        <span class="tt-result-label"><span data-lang-de>Was am Ende steht</span><span data-lang-en>What you leave with</span></span>
+        <p>
+          <span data-lang-de>Ausgedrückte Wertschätzung — und ein Tag, über den das Team noch spricht.</span>
+          <span data-lang-en>Appreciation made visible — and a day the team still talks about.</span>
+        </p>
+      </div>
+      <div class="tt-tags">
+        <span class="tag"><span data-lang-de>1 Tag</span><span data-lang-en>1 day</span></span>
+        <span class="tag"><span data-lang-de>ab 10 Personen</span><span data-lang-en>from 10 people</span></span>
+        <span class="tag tag-price"><span data-lang-de>Preis auf Anfrage</span><span data-lang-en>Price on request</span></span>
+      </div>
+      <a class="tt-cta" href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener">
+        <span data-lang-de>Termin anfragen</span><span data-lang-en>Request a date</span>
+      </a>
+    </article>
+
+    <!-- ── Format 06 ── -->
+    <article class="tt-card">
+      <div class="tt-num">06</div>
+      <div class="tt-dimension">
+        <span data-lang-de>Lösungen</span><span data-lang-en>Resolution</span>
+      </div>
+      <h3 class="tt-name">
+        <span data-lang-de>Konflikte lösen statt aussitzen</span>
+        <span data-lang-en>Resolving conflicts instead of sitting them out</span>
+      </h3>
+      <p class="tt-occasion">
+        <span data-lang-de>Wenn die Spannungen allen bekannt sind, aber niemand sie ausspricht — und die Zusammenarbeit darunter leidet.</span>
+        <span data-lang-en>When everyone knows about the tensions but no one names them — and collaboration suffers for it.</span>
+      </p>
+      <ul class="tt-steps">
+        <li><span data-lang-de>Konflikte benennen</span><span data-lang-en>Naming the conflicts</span></li>
+        <li><span data-lang-de>Interessen hinter den Positionen</span><span data-lang-en>Interests behind the positions</span></li>
+        <li><span data-lang-de>Lösungen erarbeiten</span><span data-lang-en>Working out solutions</span></li>
+        <li><span data-lang-de>Vereinbarungen mit Termin</span><span data-lang-en>Agreements with deadlines</span></li>
+      </ul>
+      <div class="tt-result">
+        <span class="tt-result-label"><span data-lang-de>Was am Ende steht</span><span data-lang-en>What you leave with</span></span>
+        <p>
+          <span data-lang-de>Die strittigen Punkte sind bearbeitet — mit Vereinbarungen, an denen sich alle messen lassen.</span>
+          <span data-lang-en>The contested points are dealt with — with agreements everyone can be held to.</span>
+        </p>
+      </div>
+      <div class="tt-tags">
+        <span class="tag"><span data-lang-de>1 Tag</span><span data-lang-en>1 day</span></span>
+        <span class="tag"><span data-lang-de>6–14 Personen</span><span data-lang-en>6–14 people</span></span>
+        <span class="tag tag-price">2.900 €</span>
+      </div>
+      <a class="tt-cta" href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener">
+        <span data-lang-de>Termin anfragen</span><span data-lang-en>Request a date</span>
+      </a>
+    </article>
+
+  </div>
+
+  <div class="tt-foot">
+    <div class="tt-tailor">
+      <span data-lang-de>„Kein Einheitsrezept. Aber auch keine Konzeptschleife.“</span>
+      <span data-lang-en>“No one-size-fits-all. But no endless concept loop either.”</span>
+      <small>
+        <span data-lang-de>Jeder Teamtag wird im Vorgespräch auf Ihre Situation zugeschnitten. Ablauf, Dauer und Preis bleiben wie beschrieben.</span>
+        <span data-lang-en>Every team day is tailored to your situation in the preliminary conversation. Structure, duration and price stay as described.</span>
+      </small>
+    </div>
+
+    <div class="tt-terms">
+      <div>
+        <div class="tt-term-label"><span data-lang-de>Im Preis enthalten</span><span data-lang-en>Included</span></div>
+        <div class="tt-term-value">
+          <span data-lang-de>Vorgespräch (30 Min) · Durchführung · Ergebnisdokumentation</span>
+          <span data-lang-en>Preliminary conversation (30 min) · Facilitation · Written outcome</span>
+        </div>
+      </div>
+      <div>
+        <div class="tt-term-label"><span data-lang-de>Rahmen</span><span data-lang-en>Terms</span></div>
+        <div class="tt-term-value">
+          <span data-lang-de>Vor Ort · Online · Inhouse. Zzgl. USt. und Reisekosten.</span>
+          <span data-lang-en>On-site · Online · In-house. Plus VAT and travel.</span>
+        </div>
+      </div>
+      <div>
+        <div class="tt-term-label"><span data-lang-de>Vertiefung</span><span data-lang-en>Follow-up</span></div>
+        <div class="tt-term-value">
+          <span data-lang-de>Halbtag nach 8–12 Wochen — 1.400 €</span>
+          <span data-lang-en>Half day after 8–12 weeks — €1,400</span>
+        </div>
+      </div>
+      <div class="tt-actions">
+        <a class="btn-primary" href="https://calendar.app.google/aAvZx1mpayZB5foy8" target="_blank" rel="noopener">
+          <span data-lang-de>30 Min. Erstgespräch buchen</span><span data-lang-en>Book a fit check</span>
+        </a>
+        <a class="btn-ghost" href="#contact">
+          <span data-lang-de>Frage stellen</span><span data-lang-en>Ask a question</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!-- ═══════════ ENDE EINSETZ-BEREICH ═══════════ -->
+
+</body>
+</html>
