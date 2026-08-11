@@ -83,7 +83,13 @@
       font-weight: 300; line-height: 1.05;
       margin-bottom: 1.5rem;
     }
-    .lab-title em { font-style: italic; color: var(--sage); }
+    .lab-title em {
+      font-style: italic; color: var(--sage);
+      font-size: 0.52em;
+      display: inline-block;
+      margin-top: 0.1rem;
+      line-height: 1.15;
+    }
     .title-dot { color: var(--off-white); }
     .lab-intro {
       font-size: 1.05rem; color: #C0C0C0;
@@ -188,39 +194,6 @@
     .kurs-kategorie .kat-line { flex: 1; height: 1px; background: var(--border); }
     .kurse-grid { margin-top: 0; }
 
-    /* ── HINWEIS-KARTE ── */
-    .kurs-note {
-      background: var(--black);
-      padding: 2.75rem 1.9rem;
-      display: flex; flex-direction: column;
-      align-items: flex-start; justify-content: center;
-      grid-column: span 3;
-    }
-    @media (max-width: 1150px) { .kurs-note { grid-column: span 1; } }
-    .kurs-note p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; font-weight: 300; font-style: italic;
-      color: var(--grey); line-height: 1.4; margin-bottom: 1.25rem;
-    }
-    .kurs-note a {
-      font-size: 0.72rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--sage);
-      text-decoration: none; transition: opacity 0.25s;
-    }
-    .kurs-note a:hover { opacity: 0.7; }
-
-    /* ── PLACEHOLDER STATE ── */
-    .coming-soon {
-      text-align: center; padding: 5rem 2rem;
-      border-top: 1px solid var(--border);
-      max-width: 1200px; margin: 0 auto;
-    }
-    .coming-soon p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; font-weight: 300;
-      font-style: italic; color: var(--grey);
-    }
-
     /* ── CTA ── */
     .lab-cta {
       border-top: 1px solid var(--border);
@@ -229,7 +202,7 @@
       display: flex; align-items: center;
       justify-content: space-between; gap: 3rem;
     }
-    @media (max-width: 900px) { .lab-cta { flex-direction: column; padding: 4rem 1.5rem; } }
+    @media (max-width: 900px) { .lab-cta { flex-direction: column; padding: 4rem 1.5rem; align-items: flex-start; } }
     .lab-cta-text h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.2rem; font-weight: 300;
@@ -631,9 +604,40 @@
         <div class="kurs-arrow" aria-hidden="true">→</div>
       </div>
 
-      <div class="kurs-note">
-        <p>Weiteres in Planung.<br>Anpassbar nach Wunsch und Bedarf.</p>
-        <a href="mailto:anfrage@commnsense.de">Anfrage stellen →</a>
+      <div class="kurs-card">
+        <div class="kurs-num">10</div>
+        <div><span class="kurs-segment">Teamentwicklung</span> <span class="kurs-format">Workshop</span></div>
+        <div class="kurs-name">Klartext: Wie wir<br>zusammenarbeiten wollen</div>
+        <p class="kurs-desc">
+          Wenn nach Umbau, Fusion oder Führungswechsel alle formal ein Team sind –
+          und faktisch drei. Am Ende steht eine Zusammenarbeitsvereinbarung:
+          eine Seite, von allen getragen.
+        </p>
+        <div class="kurs-meta">Dauer: <span>1 Tag</span> &nbsp;·&nbsp; <span>8–16 Personen</span> &nbsp;·&nbsp; <span>2.900 €</span></div>
+      </div>
+
+      <div class="kurs-card">
+        <div class="kurs-num">11</div>
+        <div><span class="kurs-segment">Teamentwicklung</span> <span class="kurs-format">Workshop</span></div>
+        <div class="kurs-name">Belastung steuern<br>statt aushalten</div>
+        <p class="kurs-desc">
+          Wenn der dritte Umbau in vier Jahren durch ist, das Team noch funktioniert –
+          aber die Luft raus ist. Am Ende stehen drei Entscheidungen der Führungskraft,
+          verbindlich terminiert.
+        </p>
+        <div class="kurs-meta">Dauer: <span>1 Tag</span> &nbsp;·&nbsp; <span>8–14 Personen</span> &nbsp;·&nbsp; <span>2.900 €</span></div>
+      </div>
+
+      <div class="kurs-card">
+        <div class="kurs-num">12</div>
+        <div><span class="kurs-segment">Teamentwicklung</span> <span class="kurs-format">Workshop</span></div>
+        <div class="kurs-name">Unangenehme<br>Gespräche führen</div>
+        <p class="kurs-desc">
+          Wenn Leistungsthemen liegen bleiben, Konflikte an Schnittstellen festhängen
+          und Nein sagen nach oben schwerfällt. Am Ende hat jede Person ihr anstehendes
+          Gespräch vorbereitet – und einmal geführt.
+        </p>
+        <div class="kurs-meta">Dauer: <span>1 Tag</span> &nbsp;·&nbsp; <span>max. 12 Personen</span> &nbsp;·&nbsp; <span>2.900 €</span></div>
       </div>
 
     </div>
