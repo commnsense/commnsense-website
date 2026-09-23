@@ -6,7 +6,7 @@
 <title>生き甲斐 IKIGAI – comm&sense</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -47,7 +47,7 @@
     backdrop-filter:blur(8px);
   }
   .nav-logo {
-    font-family:"Cormorant Garant",serif;font-size:1.1rem;font-weight:300;
+    font-family:"Cormorant Garamond","Cormorant Garant",serif;font-size:1.1rem;font-weight:300;
     letter-spacing:0.04em;color:var(--off-white);text-decoration:none;
   }
   .nav-logo span{color:var(--sage);}
@@ -74,7 +74,7 @@
     font-weight: 300;
   }
   header h1 {
-    font-family:"Cormorant Garant",serif;
+    font-family:"Cormorant Garamond","Cormorant Garant",serif;
     font-size:clamp(3rem,7vw,5.5rem);
     font-weight:300;letter-spacing:0.06em;
     color:var(--off-white);line-height:1.05;
@@ -112,11 +112,11 @@
   .field-card:focus-within::after{width:100%;}
 
   .field-num {
-    font-family:"Cormorant Garant",serif;font-size:2.5rem;font-weight:300;
+    font-family:"Cormorant Garamond","Cormorant Garant",serif;font-size:2.5rem;font-weight:300;
     color:rgba(190,218,170,0.12);line-height:1;margin-bottom:1rem;
   }
   .field-label {
-    font-family:"Cormorant Garant",serif;font-size:1.3rem;font-weight:400;
+    font-family:"Cormorant Garamond","Cormorant Garant",serif;font-size:1.3rem;font-weight:400;
     color:var(--off-white);margin-bottom:0.35rem;
   }
   .field-hint{font-size:0.78rem;color:var(--grey);margin-bottom:1.25rem;font-weight:300;}
@@ -171,7 +171,7 @@
 
   .results-header{text-align:center;margin-bottom:3rem;}
   .results-header h2{
-    font-family:"Cormorant Garant",serif;font-size:2.5rem;font-weight:300;
+    font-family:"Cormorant Garamond","Cormorant Garant",serif;font-size:2.5rem;font-weight:300;
     color:var(--off-white);
   }
   .results-header h2 em{font-style:italic;color:var(--sage);}
@@ -203,7 +203,7 @@
   .int-card:nth-child(4){animation-delay:0.4s;} .int-card:nth-child(4)::after{background:var(--sage);}
 
   .int-label{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--grey);margin-bottom:0.4rem;}
-  .int-title{font-family:"Cormorant Garant",serif;font-size:1.4rem;font-weight:400;margin-bottom:0.75rem;}
+  .int-title{font-family:"Cormorant Garamond","Cormorant Garant",serif;font-size:1.4rem;font-weight:400;margin-bottom:0.75rem;}
   .int-card:nth-child(1) .int-title{color:#E8907A;}
   .int-card:nth-child(2) .int-title{color:#90C490;}
   .int-card:nth-child(3) .int-title{color:#8090C8;}
@@ -225,7 +225,7 @@
   }
   .purpose-label::before,.purpose-label::after{content:"";display:block;width:24px;height:1px;background:var(--sage);}
   .purpose-title{
-    font-family:"Cormorant Garant",serif;
+    font-family:"Cormorant Garamond","Cormorant Garant",serif;
     font-size:clamp(1.5rem,4vw,2.2rem);
     font-weight:300;font-style:italic;
     color:var(--off-white);margin-bottom:1.5rem;line-height:1.3;
@@ -234,6 +234,24 @@
     font-size:0.95rem;line-height:1.85;
     color:var(--grey);max-width:560px;margin:0 auto;font-weight:300;
   }
+
+  /* ── IKIGAI-ERKLÄRUNG ── */
+  .ik-explain{max-width:620px;margin:0 auto 3rem;text-align:center;}
+  .ik-explain p{font-size:0.92rem;color:var(--grey);line-height:1.85;font-weight:300;}
+  .ik-explain strong{color:var(--off-white);font-weight:400;}
+
+  /* ── COACHING-FRAGE ── */
+  .question-card{
+    border:1px solid var(--border);border-top:none;
+    padding:2rem 3.5rem;text-align:center;
+    opacity:0;animation:fadeUp 0.7s ease 0.7s forwards;
+  }
+  .question-label{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--grey);margin-bottom:0.75rem;}
+  .question-text{font-family:"Cormorant Garamond","Cormorant Garant",serif;font-size:1.35rem;font-style:italic;color:var(--sage);line-height:1.4;}
+  .privacy-note{font-size:0.72rem;color:var(--grey);text-align:center;max-width:560px;margin:1rem auto 0;line-height:1.6;font-weight:300;}
+  .privacy-note a{color:var(--sage);}
+  .fallback{display:none;text-align:center;padding:3rem 1rem;}
+  .fallback.visible{display:block;}
 
   /* ── RESET ── */
   .reset-wrap{text-align:center;margin-top:3rem;}
@@ -300,6 +318,13 @@
 
   <div class="cta-wrap">
     <button class="btn-primary" id="generate">Meinen IKIGAI analysieren</button>
+    <p class="privacy-note">Deine Angaben werden zur Auswertung an die KI Claude (Anthropic, USA) übermittelt und in Kopie an mich gesendet, damit ich dich bei Interesse persönlich begleiten kann. Bitte keine sensiblen Daten eintragen. Details in der Datenschutzerklärung auf <a href="/">commnsense.de</a>.</p>
+  </div>
+
+  <div class="fallback" id="fallback">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--off-white);margin-bottom:1rem;">Danke – deine Eingaben sind angekommen.</p>
+    <p style="font-size:0.95rem;color:var(--grey);line-height:1.85;max-width:500px;margin:0 auto 2rem;font-weight:300;">Die automatische Auswertung ist gerade nicht erreichbar. Ich melde mich persönlich bei dir – oder du buchst direkt ein Gespräch.</p>
+    <a href="https://calendly.com/christian-chua-bidz/30min" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;">Coaching-Sitzung vereinbaren</a>
   </div>
 
   <div class="loader" id="loader">
@@ -313,6 +338,10 @@
     <div class="results-header">
       <p class="section-label" style="justify-content:center;">Dein Ergebnis</p>
       <h2>Deine IKIGAI-Analyse</h2>
+    </div>
+
+    <div class="ik-explain">
+      <p><strong>Was ist IKIGAI?</strong> Das japanische 生き甲斐 bedeutet sinngemäß „das, wofür es sich zu leben lohnt“. Das Modell legt vier Fragen übereinander: Was kannst du gut? Was machst du gerne? Was braucht die Welt? Wofür wirst du bezahlt? Wo sich zwei Felder überschneiden, entstehen Leidenschaft, Mission, Beruf und Berufung. In der Mitte, wo alle vier zusammenkommen, liegt dein IKIGAI – der Rahmen, in dem Beruf und Berufung zusammenfallen.</p>
     </div>
 
     <div class="ik-visual">
@@ -352,9 +381,14 @@
       <div class="purpose-text" id="purpose-text"></div>
     </div>
 
+    <div class="question-card" id="question-card">
+      <div class="question-label">Die Frage, die sich zu vertiefen lohnt</div>
+      <div class="question-text" id="question-text"></div>
+    </div>
+
     <div class="reset-wrap">
       <p style="font-size:0.95rem; color:var(--grey); font-weight:300; line-height:1.85; max-width:560px; margin:0 auto 2rem; text-align:center;">
-        Auch, wenn das Ergebnis hier kein Zufall, Horoskop oder Hokus-Pokus ist, kann es natürlich nur einen ganz groben Einblick in das, was Dich antreibt, bieten. Richtig Sinn ergibt das Ganze nur im Gespräch, das Du hier mit mir vereinbaren kannst.
+        Auch wenn das Ergebnis kein Zufall, Horoskop oder Hokuspokus ist: Eine KI-Auswertung liefert nur einen groben ersten Einblick in das, was dich antreibt. Richtig Sinn ergibt das Ganze erst im Gespräch – dort prüfen wir, was trägt, was fehlt und welcher nächste Schritt realistisch ist. Die erste Sitzung kannst du hier direkt mit mir vereinbaren.
       </p>
       <a href="https://calendly.com/christian-chua-bidz/30min" target="_blank" class="btn-primary" style="display:inline-block; margin-bottom:1.25rem;">
         Coaching-Sitzung vereinbaren
@@ -368,7 +402,7 @@
 const meta = [
   { label:"Leidenschaft", sublabel:"Was ich gut kann × Was ich gerne mache", id:"passion" },
   { label:"Mission",      sublabel:"Was ich gerne mache × Was die Welt braucht", id:"mission" },
-  { label:"Profession",   sublabel:"Was ich gut kann × Womit ich Geld verdiene", id:"profession" },
+  { label:"Beruf",        sublabel:"Was ich gut kann × Womit ich Geld verdiene", id:"profession" },
   { label:"Berufung",     sublabel:"Was die Welt braucht × Womit ich Geld verdiene", id:"vocation" },
 ];
 
@@ -403,53 +437,22 @@ async function generate() {
   document.getElementById("loader").classList.add("active");
   document.getElementById("results").classList.remove("visible");
 
-  const prompt = `Du bist ein erfahrener Career Coach mit Expertise im IKIGAI-Framework.
 
-Analysiere die folgenden Angaben und entwickle:
-1. Die vier IKIGAI-Schnittmengen (je 2-3 Sätze, präzise und persönlich)
-2. Den zentralen Purpose als prägnante Kernaussage (1 Satz, wie ein Leitsatz)
-3. Eine Erläuterung des Purpose (3-4 Sätze, tiefgründig und motivierend)
-
-Eingaben:
-- Was ich gut kann: ${gut}
-- Was ich gerne mache: ${gerne}
-- Was die Welt von mir braucht: ${welt}
-- Womit ich Geld verdienen kann: ${geld}
-
-Antworte ausschließlich als JSON (kein Markdown, keine Backticks), exakt in diesem Format:
-{"passion":"...","mission":"...","profession":"...","vocation":"...","purposeTitle":"...","purposeText":"..."}`;
-
+  document.getElementById("fallback").classList.remove("visible");
   try {
-    const API_KEY = "DEIN-API-KEY-HIER"; // sk-ant-api03-...
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("/api/ikigai", {
       method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "x-api-key": API_KEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model:"claude-sonnet-4-20250514",
-        max_tokens:1000,
-        messages:[{role:"user",content:prompt}]
-      })
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ gut, gerne, welt, geld })
     });
-    const data = await res.json();
-    const raw  = data.content?.find(b => b.type==="text")?.text || "";
-    const json = JSON.parse(raw.replace(/```json|```/g,"").trim());
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const json = await res.json();
     renderResults(json);
   } catch(e) {
-    // API not available – show personal follow-up message
-    const r = document.getElementById("results");
-    r.innerHTML = `
-      <div style="text-align:center;padding:3rem 1rem;">
-        <p style="font-family:'Cormorant Garant',serif;font-size:2rem;font-weight:300;color:#1A1612;margin-bottom:1rem;">Danke – deine Eingaben sind angekommen.</p>
-        <p style="font-size:0.95rem;color:#6B6158;line-height:1.85;max-width:500px;margin:0 auto 2rem;">Ich melde mich persönlich bei dir mit einer individuellen Auswertung. Versprochen.</p>
-        <a href="https://calendly.com/christian-chua-bidz/30min" target="_blank" style="display:inline-block;padding:0.9rem 2.2rem;background:#1A1612;color:#F5F0E8;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Coaching-Sitzung vereinbaren</a>
-      </div>`;
-    r.classList.add("visible");
-    r.scrollIntoView({behavior:"smooth"});
+    console.error(e);
+    const f = document.getElementById("fallback");
+    f.classList.add("visible");
+    f.scrollIntoView({behavior:"smooth"});
   } finally {
     document.getElementById("generate").disabled = false;
     document.getElementById("loader").classList.remove("active");
@@ -465,12 +468,16 @@ function renderResults(data) {
     d.innerHTML = `
       <div class="int-label">${m.sublabel}</div>
       <div class="int-title">${m.label}</div>
-      <div class="int-text">${data[m.id]}</div>`;
+      <div class="int-text"></div>`;
+    d.querySelector(".int-title").textContent = m.label;
+    d.querySelector(".int-text").textContent = data[m.id] || "";
     c.appendChild(d);
     requestAnimationFrame(() => d.classList.add("visible"));
   });
   document.getElementById("purpose-title").textContent = data.purposeTitle;
   document.getElementById("purpose-text").textContent  = data.purposeText;
+  document.getElementById("question-text").textContent = data.question || "";
+  document.getElementById("question-card").style.display = data.question ? "" : "none";
   document.getElementById("results").classList.add("visible");
   document.getElementById("results").scrollIntoView({behavior:"smooth",block:"start"});
 }
@@ -481,6 +488,7 @@ function hideError()    { document.getElementById("error").classList.remove("vis
 document.getElementById("generate").addEventListener("click", generate);
 document.getElementById("reset").addEventListener("click", () => {
   document.getElementById("results").classList.remove("visible");
+  document.getElementById("fallback").classList.remove("visible");
   ["gut","gerne","welt","geld"].forEach(id => document.getElementById(id).value = "");
   window.scrollTo({top:0,behavior:"smooth"});
 });
