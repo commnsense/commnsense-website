@@ -1680,7 +1680,7 @@
             <span data-lang-de>Adresse</span><span data-lang-en>Address</span>
           </div>
           <div class="contact-detail-value" style="font-size:1rem; font-family:'DM Sans',sans-serif; color:var(--grey); font-weight:300; line-height:1.7;">
-            Limburger Str. 42a<br>61462 Königstein im Taunus
+            Frankfurter Str. 5<br>61462 Königstein im Taunus
           </div>
         </div>
         <div class="contact-detail">
@@ -1720,17 +1720,17 @@
           <label class="form-label">
             <span data-lang-de>Name</span><span data-lang-en>Name</span>
           </label>
-          <input type="text" class="form-input" placeholder="" />
+          <input type="text" name="name" class="form-input" placeholder="" required autocomplete="name" />
         </div>
         <div class="form-group">
           <label class="form-label">E-Mail</label>
-          <input type="email" class="form-input" placeholder="" />
+          <input type="email" name="email" class="form-input" placeholder="" required autocomplete="email" />
         </div>
         <div class="form-group">
           <label class="form-label">
             <span data-lang-de>Anliegen</span><span data-lang-en>Topic</span>
           </label>
-          <select class="form-select form-input">
+          <select name="anliegen" class="form-select form-input">
             <option value="" disabled selected>Bitte wählen</option>
             <option value="coaching">Coaching</option>
             <option value="beratung">Kommunikationsberatung</option>
@@ -1744,7 +1744,10 @@
           <label class="form-label">
             <span data-lang-de>Nachricht</span><span data-lang-en>Message</span>
           </label>
-          <textarea class="form-textarea" placeholder="..."></textarea>
+          <textarea name="nachricht" class="form-textarea" placeholder="..."></textarea>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" aria-hidden="true" />
+        <div>
         </div>
         <button class="btn-primary form-submit" onclick="handleSubmit()">
           <span data-lang-de>Nachricht senden</span>
@@ -1753,7 +1756,7 @@
 
         <div style="margin-top:2rem; border:1px solid var(--border); overflow:hidden;">
           <iframe
-            src="https://maps.google.com/maps?q=Limburger+Str.+42a,+61462+K%C3%B6nigstein+im+Taunus&output=embed&z=15"
+            src="https://maps.google.com/maps?q=Frankfurter+Str.+5,+61462+K%C3%B6nigstein+im+Taunus&output=embed&z=15"
             width="100%" height="200" style="border:0; display:block; filter:grayscale(1) invert(0.9) contrast(0.85);"
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
@@ -1835,18 +1838,43 @@
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     // ── FORM SUBMIT (placeholder) ──
-    function handleSubmit() {
-      // Send to anfrage@commnsense.de via Formspree (add your Formspree endpoint to activate)
-      const email = document.querySelector('.form-input[type="email"]').value;
-      const name = document.querySelector('.form-input[type="text"]').value;
-      if (!email || !name) { return; }
-      const btn = document.querySelector('.form-submit');
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/myezjjel';
+    async function handleSubmit() {
+      const q = sel => document.querySelector(sel);
+      const nameEl = q('.form-input[name="name"]');
+      const emailEl = q('.form-input[name="email"]');
+      const btn = q('.form-submit');
       const de = document.documentElement.lang !== 'en';
+      if (!nameEl.value.trim()) { nameEl.focus(); return; }
+      if (!emailEl.value.trim() || !emailEl.checkValidity()) { emailEl.focus(); emailEl.reportValidity(); return; }
+      if (btn.disabled) return;
+      const original = btn.innerHTML;
+      btn.disabled = true;
       btn.textContent = de ? 'Wird gesendet …' : 'Sending …';
-      setTimeout(() => {
+      const data = new FormData();
+      data.append('name', nameEl.value.trim());
+      data.append('email', emailEl.value.trim());
+      data.append('anliegen', q('select[name="anliegen"]').value || 'nicht angegeben');
+      data.append('nachricht', q('textarea[name="nachricht"]').value.trim());
+      data.append('_gotcha', q('input[name="_gotcha"]').value);
+      data.append('_subject', 'Website-Anfrage von ' + nameEl.value.trim());
+      data.append('_replyto', emailEl.value.trim());
+      try {
+        const res = await fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         btn.textContent = de ? '✓ Nachricht gesendet' : '✓ Message sent';
         btn.style.background = 'rgba(255,255,255,0.15)';
-      }, 1200);
+        nameEl.value = ''; emailEl.value = '';
+        q('select[name="anliegen"]').selectedIndex = 0;
+        q('textarea[name="nachricht"]').value = '';
+      } catch (err) {
+        console.error('Formspree:', err);
+        btn.disabled = false;
+        btn.innerHTML = original;
+        alert(de
+          ? 'Die Nachricht konnte nicht gesendet werden. Bitte schreiben Sie direkt an info@commnsense.de.'
+          : 'Your message could not be sent. Please email info@commnsense.de directly.');
+      }
     }
 
     // ── CUSTOM CURSOR ──
@@ -2213,16 +2241,14 @@ Antworte ausschließlich als JSON (kein Markdown, keine Backticks):
       <h2>Impressum</h2>
       <h3>Angaben gemäß § 5 TMG</h3>
       <p>Comm&amp;Sense Dr. Christian Chua<br>
-      Limburger Str. 42a<br>
+      Frankfurter Str. 5<br>
       61462 Königstein im Taunus<br>
       Deutschland</p>
       <h3>Kontakt</h3>
       <p>Telefon: +49 179 148 2 888<br>
       E-Mail: <a href="mailto:info@commnsense.de" style="color:var(--sage)">info@commnsense.de</a></p>
-      <h3>Umsatzsteuer-ID</h3>
-      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: 00380933411</p>
       <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
-      <p>Dr. Christian Chua<br>Limburger Str. 42a, 61462 Königstein im Taunus</p>
+      <p>Dr. Christian Chua<br>Frankfurter Str. 5, 61462 Königstein im Taunus</p>
       <h3>Berufsbezeichnung und berufsrechtliche Regelungen</h3>
       <p>Berufsbezeichnung: Kommunikationsberater<br>Verliehen in: Deutschland</p>
       <h3>EU-Streitschlichtung</h3>
@@ -2244,27 +2270,33 @@ Antworte ausschließlich als JSON (kein Markdown, keine Backticks):
       <button class="modal-close" onclick="closeModal('datenschutz')">×</button>
       <h2>Datenschutzerklärung</h2>
       <h3>1. Verantwortlicher</h3>
-      <p>Dr. Christian Chua, Limburger Str. 42a, 61462 Königstein im Taunus<br>
-      E-Mail: <a href="mailto:anfrage@commnsense.de" style="color:var(--sage)">anfrage@commnsense.de</a></p>
+      <p>Dr. Christian Chua, Frankfurter Str. 5, 61462 Königstein im Taunus<br>
+      E-Mail: <a href="mailto:info@commnsense.de" style="color:var(--sage)">info@commnsense.de</a></p>
       <h3>2. Erhebung und Verarbeitung personenbezogener Daten</h3>
       <p>Diese Website erhebt keine personenbezogenen Daten, es sei denn, Sie nehmen aktiv Kontakt auf. 
       Bei Nutzung des Kontaktformulars werden Name und E-Mail-Adresse zur Bearbeitung Ihrer Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO).</p>
-      <h3>3. Terminbuchung</h3>
+      <h3>3. Kontaktformular (Formspree)</h3>
+      <p>Für den Versand des Kontaktformulars nutzen wir den Dienst Formspree (Formspree, Inc., USA). 
+      Die von Ihnen eingegebenen Daten (Name, E-Mail-Adresse, Anliegen, Nachricht) sowie technische Daten (IP-Adresse, Zeitstempel) werden an Formspree übertragen, dort verarbeitet und per E-Mail an uns weitergeleitet. 
+      Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Vertragsverhältnisses) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen). 
+      Dabei kann eine Übermittlung in die USA erfolgen. 
+      Datenschutz: <a href="https://formspree.io/legal/privacy-policy/" target="_blank" style="color:var(--sage)">formspree.io/legal/privacy-policy</a>.</p>
+      <h3>4. Terminbuchung</h3>
       <p>Für die Terminbuchung werden externe Dienste (Google Calendar, Calendly) genutzt. 
       Beim Besuch dieser Dienste gelten deren jeweilige Datenschutzerklärungen.</p>
-      <h3>4. Hosting</h3>
+      <h3>5. Hosting</h3>
       <p>Diese Website wird über Vercel Inc., 340 Pine Street, San Francisco, CA 94104, USA gehostet. 
       Beim Abruf der Website werden technische Zugriffsdaten (IP-Adresse, Zeitstempel) temporär gespeichert.</p>
-      <h3>5. Google Maps</h3>
+      <h3>6. Google Maps</h3>
       <p>Diese Seite nutzt Google Maps zur Darstellung von Standortinformationen. 
       Anbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. 
       Datenschutz: <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--sage)">policies.google.com/privacy</a>.</p>
-      <h3>6. Ihre Rechte</h3>
+      <h3>7. Ihre Rechte</h3>
       <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung 
       Ihrer Daten sowie das Recht auf Datenübertragbarkeit. Beschwerden richten Sie an die zuständige Aufsichtsbehörde.</p>
-      <h3>7. Cookies</h3>
+      <h3>8. Cookies</h3>
       <p>Diese Website verwendet keine Tracking-Cookies. Es werden ausschließlich technisch notwendige Daten verarbeitet.</p>
-      <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--muted)">Stand: Mai 2026. Bitte vor Veröffentlichung juristisch prüfen lassen.</p>
+      <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--muted)">Stand: September 2026. Bitte vor Veröffentlichung juristisch prüfen lassen.</p>
     </div>
   </div>
 
