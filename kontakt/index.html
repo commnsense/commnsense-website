@@ -11,17 +11,17 @@
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
-  @font-face { font-family: "DM Sans"; src: url("dmsans-regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-  @font-face { font-family: "DM Sans"; src: url("dmsans-medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
-  @font-face { font-family: "DM Sans"; src: url("dmsans-semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+  @font-face { font-family: "DM Sans"; src: url("/kontakt/dmsans-regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "DM Sans"; src: url("/kontakt/dmsans-medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "DM Sans"; src: url("/kontakt/dmsans-semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
   :root { --bg: #3C3C3C; --ink: #FFFFFF; --sage: #BEDAAA; --green: #8DBB76; --deep: #2B2B2B; --line: rgba(190,218,170,.35); }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--ink); }
   body { font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif; min-height: 100vh;
          display: flex; justify-content: center; padding: max(32px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom)); }
   main { width: 100%; max-width: 420px; display: flex; flex-direction: column; }
-  .head { display: flex; align-items: center; gap: 16px; margin-bottom: 30px; }
-  .tile { width: 64px; height: 64px; flex-shrink: 0; display: block; }
+  .head { display: flex; justify-content: center; margin: 8px 0 36px; }
+  .logo { width: 100%; max-width: 330px; height: auto; display: block; }
   h1 { margin: 0; font-size: 24px; font-weight: 600; line-height: 1.15; }
   .role { margin: 6px 0 0; font-size: 16px; color: #E8E8E8; }
   .role span { color: var(--sage); font-weight: 500; }
@@ -43,15 +43,9 @@
 </head>
 <body>
 <main>
-  <header class="head">
-    <svg class="tile" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#8DBB76"/><defs><clipPath id="t"><rect x="0" y="0" width="60" height="27.3"/></clipPath><clipPath id="b"><rect x="0" y="30.7" width="60" height="40"/></clipPath></defs><g transform="translate(-5.205,-3.618) scale(1.86335)"><path clip-path="url(#t)" fill="#fff" d="M28.59,44.07C25.52,44.07 22.95,43.52 20.87,42.43C18.80,41.34 17.24,39.65 16.18,37.38C15.13,35.10 14.60,32.24 14.60,28.80C14.60,25.28 15.14,22.41 16.21,20.17C17.28,17.93 18.86,16.25 20.93,15.14C23.00,14.03 25.55,13.48 28.59,13.48C30.59,13.48 32.38,13.72 33.97,14.20C35.57,14.68 36.93,15.41 38.08,16.39C39.23,17.37 40.10,18.60 40.69,20.08C41.28,21.56 41.58,23.30 41.58,25.30L33.97,25.30C33.97,23.97 33.77,22.87 33.36,22.00C32.96,21.13 32.36,20.48 31.56,20.06C30.76,19.63 29.74,19.42 28.48,19.42C27.07,19.42 25.92,19.74 25.01,20.39C24.10,21.04 23.44,22.00 23.01,23.28C22.58,24.55 22.37,26.17 22.37,28.13L22.37,29.52C22.37,31.41 22.58,33.00 23.01,34.30C23.44,35.59 24.12,36.56 25.06,37.21C26.01,37.86 27.24,38.18 28.76,38.18C29.98,38.18 30.99,37.96 31.81,37.52C32.62,37.07 33.24,36.41 33.67,35.52C34.09,34.63 34.31,33.54 34.31,32.24L41.58,32.24C41.58,34.13 41.28,35.81 40.69,37.29C40.10,38.77 39.23,40.01 38.08,41.01C36.93,42.01 35.57,42.77 33.97,43.29C32.38,43.81 30.59,44.07 28.59,44.07Z"/><path clip-path="url(#b)" fill="#fff" d="M28.59,44.07C25.52,44.07 22.95,43.52 20.87,42.43C18.80,41.34 17.24,39.65 16.18,37.38C15.13,35.10 14.60,32.24 14.60,28.80C14.60,25.28 15.14,22.41 16.21,20.17C17.28,17.93 18.86,16.25 20.93,15.14C23.00,14.03 25.55,13.48 28.59,13.48C30.59,13.48 32.38,13.72 33.97,14.20C35.57,14.68 36.93,15.41 38.08,16.39C39.23,17.37 40.10,18.60 40.69,20.08C41.28,21.56 41.58,23.30 41.58,25.30L33.97,25.30C33.97,23.97 33.77,22.87 33.36,22.00C32.96,21.13 32.36,20.48 31.56,20.06C30.76,19.63 29.74,19.42 28.48,19.42C27.07,19.42 25.92,19.74 25.01,20.39C24.10,21.04 23.44,22.00 23.01,23.28C22.58,24.55 22.37,26.17 22.37,28.13L22.37,29.52C22.37,31.41 22.58,33.00 23.01,34.30C23.44,35.59 24.12,36.56 25.06,37.21C26.01,37.86 27.24,38.18 28.76,38.18C29.98,38.18 30.99,37.96 31.81,37.52C32.62,37.07 33.24,36.41 33.67,35.52C34.09,34.63 34.31,33.54 34.31,32.24L41.58,32.24C41.58,34.13 41.28,35.81 40.69,37.29C40.10,38.77 39.23,40.01 38.08,41.01C36.93,42.01 35.57,42.77 33.97,43.29C32.38,43.81 30.59,44.07 28.59,44.07Z"/></g></svg>
-    <div>
-      <h1>Dr. Christian Chua</h1>
-      <p class="role">Kommunikation <span>&amp;</span> Coaching</p>
-    </div>
-  </header>
+  <header class="head"><img class="logo" src="/kontakt/logo.svg" alt="comm&amp;sense – dr. christian chua, communications · coaching"></header>
   <nav aria-label="Kontaktmöglichkeiten">
-    <a class="btn primary" href="dr-christian-chua.vcf" download="Dr-Christian-Chua.vcf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg><div>Kontakt speichern<small>Direkt ins Adressbuch</small></div></a>
+    <a class="btn primary" href="/kontakt/dr-christian-chua.vcf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg><div>Kontakt speichern<small>Direkt ins Adressbuch</small></div></a>
     <a class="btn" href="https://calendar.app.google/aAvZx1mpayZB5foy8"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div>Erstgespräch buchen<small>Termin online wählen</small></div></a>
     <a class="btn" href="tel:+491791482888"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><div>Anrufen<small>0179-1482 888</small></div></a>
     <a class="btn" href="mailto:dialog@commnsense.de?subject=Terminanfrage"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><div>E-Mail schreiben<small>dialog@comm<span class="n">n</span>sense.de</small></div></a>
